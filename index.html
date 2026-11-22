@@ -9893,6 +9893,9 @@ function build(){if(typeof WIDX!=="undefined")WIDX=null;try{upgradeFloors()}catc
   const ang=w.angle,hw=w.width/2,Wd=w.width,D=w.depth,H=wh,PITCH=Math.atan(0.13),rise=D/2*Math.tan(PITCH),ridge=wy+H+rise;
   const WG=frameOf(w),RG=frameOf(w);dyn.add(WG);groups.roofs.add(RG);
   const hAt=v=>H+rise*(1-Math.abs(v-D/2)/(D/2));
+  // v57 (עודד): warm limestone cladding for every interior wall and partition (same ashlar texture as the facade, lighter tone)
+  const ISTONE=mat.stone.clone();ISTONE.color.setHex(0xfff3e4);
+  const muv=(g,w,h,d)=>{const uv=g.attributes.uv,dims=[[d,h],[d,h],[w,d],[w,d],[w,h],[w,h]];for(let f=0;f<6;f++)for(let k=0;k<4;k++){const i=f*4+k;uv.setXY(i,uv.getX(i)*dims[f][0],uv.getY(i)*dims[f][1])}return g};
   lbox(WG,w,Wd/2,D/2,Wd+0.5,D+0.5,1.1,wy-1.1,mat.stone);                       // stone plinth
   if(R06IN){ // v28 (permit stage 3, sheet A02): stone-clad walls, openings exactly as the elevations. R06 (x,y) -> local (lx,ly) = (21.739-x, 26.4944-y)
     const XL=x=>Wd-x, YL=y=>D-(y-3.4944);
@@ -9901,7 +9904,7 @@ function build(){if(typeof WIDX!=="undefined")WIDX=null;try{upgradeFloors()}catc
       for(let i=0;i+1<cuts.length;i++){const u0=cuts[i],u1=cuts[i+1],m=(u0+u1)/2,L=u1-u0;if(L<0.01)continue;
         const hz=holes.filter(h=>h[0]<m&&h[1]>m).map(h=>[h[2],h[3]]).sort((p,q)=>p[0]-q[0]);let z=0;const solid=[];
         hz.forEach(([z0,z1])=>{if(z0>z)solid.push([z,z0]);z=Math.max(z,z1)});if(z<H)solid.push([z,H]);
-        solid.forEach(([z0,z1])=>[[0.13*sg,0.2,WM.inner],[-0.03*sg,0.06,mat.stone]].forEach(([off,th,mm])=>{if(z1-z0<0.02)return;
+        solid.forEach(([z0,z1])=>[[0.13*sg,0.2,ISTONE],[-0.03*sg,0.06,mat.stone]].forEach(([off,th,mm])=>{if(z1-z0<0.02)return;
           if(axis==='x')lbox(WG,w,m,c+off,L,th,z1-z0,wy+z0,mm);else lbox(WG,w,c+off,m,th,L,z1-z0,wy+z0,mm)}))}};
     const span=(p,q)=>[Math.min(p,q),Math.max(p,q)];
     const doorL=(axis,c,sg,u0,u1,h,mm)=>{const L=u1-u0,m=(u0+u1)/2;if(axis==='x'){lbox(WG,w,m,c+0.05*sg,L,0.06,h,wy,mm);lbox(WG,w,m,c-0.04*sg,L+0.16,0.08,0.08,wy+h,WM.steel)}else{lbox(WG,w,c+0.05*sg,m,0.06,L,h,wy,mm);lbox(WG,w,c-0.04*sg,m,0.08,L+0.16,0.08,wy+h,WM.steel)}};
@@ -10005,7 +10008,7 @@ function build(){if(typeof WIDX!=="undefined")WIDX=null;try{upgradeFloors()}catc
         const bx=(x0,y0,x1,y1,z0,h,m)=>{const me=new THREE.Mesh(new THREE.BoxGeometry(x1-x0,h,y1-y0),m),[c0,c1]=P((x0+x1)/2,(y0+y1)/2);me.position.set(c0,wy+z0+h/2,c1);me.rotation.y=rot;me.castShadow=me.receiveShadow=true;me.userData.key='wfurn';RG2.add(me);return me};
         const cy_=(x,y,r,h,z0,m,seg=20)=>{const me=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,seg),m),[c0,c1]=P(x,y);me.position.set(c0,wy+z0+h/2,c1);me.castShadow=me.receiveShadow=true;me.userData.key='wfurn';RG2.add(me);return me};
         // bar counter: fluted oak front, dark stone top with an overhang, brass foot rail; back bar with lit shelves of bottles against the kitchen wall
-        bx(12.35,15.6,13.0,22.4,0,1.02,oakB);bx(12.3,15.55,13.22,22.45,1.02,0.05,stoneB);for(let y=15.75;y<22.35;y+=0.12)bx(12.99,y,13.03,y+0.05,0.08,0.9,oakB);
+        muv(bx(12.35,15.6,13.0,22.4,0,1.02,ISTONE).geometry,0.65,1.02,6.8);bx(12.3,15.55,13.22,22.45,1.02,0.05,stoneB);bx(13.0,15.6,13.03,22.4,0,0.1,oakB);
         bx(13.15,15.7,13.19,22.3,0.2,0.035,brass);bx(11.0,15.6,11.6,22.4,0,0.9,oakB);bx(10.98,15.6,11.62,22.4,0.9,0.04,stoneB);
         [1.3,1.75,2.2].forEach(z=>bx(11.0,15.6,11.32,22.4,z,0.03,oakB));bx(11.0,15.6,11.02,22.4,0.94,1.5,M(0xf3e2c0,{emissive:0x3a2a10,roughness:.6}));
         {const BK=TWB();[1.33,1.78,2.23].forEach((z,si)=>{for(let k=0;k<40;k++){const y=15.75+k*0.165,[c0,c1]=P(11.16,y),[t0,t1]=P(12.5,y),v=['b','r','w'][(si+Math.floor(k/8))%3];wineBottle(BK,c0,wy+z+0.03,c1,v,faceTo(c0,c1,t0,t1)+Math.PI+(hashStr('bk'+si+k)-0.5)*0.5)}});BK.build(RG2,'wfurn')}
@@ -10013,6 +10016,12 @@ function build(){if(typeof WIDX!=="undefined")WIDX=null;try{upgradeFloors()}catc
         // high bar tables: round oak top on a steel pedestal, 1.05 m
         HT.forEach(([x,y])=>{cy_(x,y,0.36,0.04,1.03,oakB,32);cy_(x,y,0.04,1.03,0,steelB,12);cy_(x,y,0.26,0.025,0,steelB,28)});
         if(furnOK('plant'))furnInst(RG2,'plant',[[11.45,8.25],[21.0,8.2],[11.4,26.0],[15.9,26.0]].map(([x,y],i)=>{const [c0,c1]=P(x,y);return [c0,wy,c1,i*1.9,1.5]}),'wfurn')}
+      // v57 (עודד): olive trees in square stone planters and smaller planters with shrubs, placed in the clear spots between the tables
+      {const soil=M(0x3a2c20,{roughness:1}),peb=M(0xe9e1d2,{roughness:.8}),rr=hashRand('wtree');
+        const pbox=(x,y,s,h)=>{const [c0,c1]=P(x,y),g=muv(new THREE.BoxGeometry(s,h,s),s,h,s),me=new THREE.Mesh(g,ISTONE);me.position.set(c0,wy+h/2,c1);me.rotation.y=rot;me.castShadow=me.receiveShadow=true;me.userData.key='wfurn';RG2.add(me);
+          const tp=new THREE.Mesh(new THREE.BoxGeometry(s-0.1,0.02,s-0.1),peb);tp.position.set(c0,wy+h-0.03,c1);tp.rotation.y=rot;tp.receiveShadow=true;RG2.add(tp);return [c0,c1]};
+        [[14.5,23.1,1.0,1.05],[16.3,18.95,0.95,1.0],[11.5,23.35,0.85,0.9]].forEach(([x,y,s,sc])=>{const [c0,c1]=pbox(x,y,s,0.55),t=oliveTree(rr,sc);t.position.set(c0,wy+0.55,c1);t.rotation.y=rr()*6.28;t.traverse(m=>{if(m.isMesh)m.userData.key='wfurn'});RG2.add(t)});
+        [[18.45,10.8],[20.2,8.05],[14.85,8.05],[11.25,10.7],[18.55,15.7],[21.2,20.9],[18.55,23.55],[14.8,13.1]].forEach(([x,y],i)=>{const h=i%2?0.75:0.6,[c0,c1]=pbox(x,y,0.5,h),sb=shrub(rr,0.75+rr()*0.25);sb.position.set(c0,wy+h-0.12,c1);sb.rotation.y=rr()*6.28;RG2.add(sb)})}
       window.__REST={mix,chairs:RC.length,stools:RS.length};
       // v41 (עודד): a full service: set tables with food and wine, diners on about 60% of the chairs, guests at the bar and the high tables, a bartender and a waitress;
       // glass-door wine fridges at the end of the back bar, an espresso machine on it, olives on the counter, candles and flowers on the tables
@@ -10056,7 +10065,17 @@ function build(){if(typeof WIDX!=="undefined")WIDX=null;try{upgradeFloors()}catc
                 BB.box('tankM',cx,wy,cz,rX,0,2.05,0.05,dy,0.45,0.95);BB.box('seam',cx,wy,cz,rX,0,2.04,0.05,dy-0.1,0.012,0.85)}
               else if(xm>10)steelStation(BB,cx,wy,cz,rX+Math.PI,dy,dx,h,'pass',0);else steelStation(BB,cx,wy,cz,rot,dx,dy,h,'unit',0)}
             else steelStation(BB,cx,wy,cz,rot,dx,dy,h,'unit',0)}});BB.build(RG2,'wfurn')}
-      R06IN.b.forEach(([x0,y0,x1,y1,h,k])=>{if((k==='c'&&h<0.6)||k==='t'||k==='b'||k==='k'||(k==='e'&&h<=1.0))return;const g=new THREE.BoxGeometry(Math.max(x1-x0,0.04),h,Math.max(y1-y0,0.04)),me=new THREE.Mesh(g,MT[k]||MT.e),[cx,cz]=P((x0+x1)/2,(y0+y1)/2);
+      // v57 (עודד): full-height partitions run up to the underside of the pitched roof, clad in stone; a stone header closes every door/pass gap above 2.40
+      {const lyOf=y=>D-(y-3.4944),topAt=y=>hAt(lyOf(y))+0.02,uk=3.4944+D/2,dY=uy[0]*ux[1]-uy[1]*ux[0];
+        const prismW=(ax,c,t,u0,u1,z0)=>{const tp=u=>topAt(ax==='y'?u:c),sh=new THREE.Shape();sh.moveTo(u0,z0);sh.lineTo(u1,z0);sh.lineTo(u1,tp(u1));if(ax==='y'&&u0<uk&&uk<u1)sh.lineTo(uk,tp(uk));sh.lineTo(u0,tp(u0));sh.closePath();
+          const g=new THREE.ExtrudeGeometry(sh,{depth:t,bevelEnabled:false,curveSegments:1}),pa=g.attributes.position,uv=g.attributes.uv;
+          for(let i=0;i<pa.count;i++){const u=pa.getX(i),z=pa.getY(i),v=pa.getZ(i)-t/2,[X,Z]=ax==='y'?P(c+v,u):P(u,c+v);pa.setXYZ(i,X,wy+z,Z)}
+          if((ax==='y'?dY:-dY)<0)for(let i=0;i<pa.count;i+=3){[pa,uv].forEach(A=>{const n=A.itemSize;for(let j=0;j<n;j++){const q=A.array[(i+1)*n+j];A.array[(i+1)*n+j]=A.array[(i+2)*n+j];A.array[(i+2)*n+j]=q}})}
+          g.computeVertexNormals();const me=new THREE.Mesh(g,ISTONE);me.castShadow=me.receiveShadow=true;RG2.add(me)};
+        const LN={};R06IN.b.filter(q=>q[5]==='w'&&q[4]>=3.5).forEach(([x0,y0,x1,y1])=>{const ax=(y1-y0)>(x1-x0)?'y':'x',c=ax==='y'?(x0+x1)/2:(y0+y1)/2,t=ax==='y'?x1-x0:y1-y0,key=ax+Math.round(c*5);(LN[key]=LN[key]||{ax,c,t,s:[]}).s.push(ax==='y'?[y0,y1]:[x0,x1])});
+        Object.values(LN).forEach(({ax,c,t,s})=>{s.sort((p,q)=>p[0]-q[0]);const mg=[];s.forEach(([a,b])=>{const l=mg[mg.length-1];if(l&&a<=l[1]+0.05)l[1]=Math.max(l[1],b);else mg.push([a,b])});
+          mg.forEach(([a,b],i)=>{prismW(ax,c,t,a,b,0);const n=mg[i+1];if(n&&n[0]-b>0.6&&n[0]-b<4.5)prismW(ax,c,t,b,n[0],2.4)})});}
+      R06IN.b.forEach(([x0,y0,x1,y1,h,k])=>{if((k==='c'&&h<0.6)||k==='t'||k==='b'||k==='k'||(k==='e'&&h<=1.0)||(k==='w'&&h>=3.5))return;const g=new THREE.BoxGeometry(Math.max(x1-x0,0.04),h,Math.max(y1-y0,0.04)),me=new THREE.Mesh(g,MT[k]||MT.e),[cx,cz]=P((x0+x1)/2,(y0+y1)/2);
         me.position.set(cx,wy+h/2,cz);me.rotation.y=rot;me.castShadow=me.receiveShadow=true;RG2.add(me)});
       groups.furniture.add(RG2);
       const LB=new THREE.Group();R06IN.rooms.forEach(([k,n,a,x,y])=>{const w=a>40?4.2:(a>15?2.6:1.5),h=w*0.3,c=document.createElement('canvas');c.width=640;c.height=192;const t2=c.getContext('2d');
