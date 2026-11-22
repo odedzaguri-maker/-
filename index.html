@@ -8835,9 +8835,9 @@ function rectPanels(target,o,y0,list){const p=rect(o);list.forEach(([e,u0,u1,z0,
 // ---------- v19: north wing rooms (A-2 ground floor, 18.11.2024) and the master suite on the first floor (A-3, finished floor +3.60)
 // Room sizes read from the A-2 / A-3 dimension chains: rooms 4.00 m deep on the west, 1.38 m corridor along the fixed pool vitrines on the east,
 // ממ"ד 3.70 x 3.40 with 30 cm concrete walls, two bedrooms 3.60-3.70 m, two bathrooms with corner baths, guest WC and laundry with a side door.
-const WG_={x0:5.66,x1:11.33,cw:9.89,y0:15.37,y1:37.76};
+const WG_={x0:5.66,x1:11.33,cw:9.89,y0:15.37,y1:37.02};
 const WING_ROOMS=[['wc','שירותי אורחים',5.66,15.37,9.83,17.5],['laundry','כביסה ושירות',5.66,17.62,9.83,19.82],['mamad','ממ"ד / חדר עבודה',5.66,20.12,9.53,23.28],
-  ['bed2','חדר שינה',5.66,23.58,9.83,27.2],['bed3','חדר ילדים',5.66,27.32,9.83,30.92],['bath2','חדר רחצה',5.66,31.04,9.83,33.75],['bath1','חדר רחצה ראשי',5.66,33.87,7.36,37.76],['terr','מרפסת מקורה מול הבריכה',7.48,33.87,11.62,38.0],
+  ['bed2','חדר שינה',5.66,23.58,9.83,27.2],['bed3','חדר ילדים',5.66,27.32,9.83,30.92],['bath2','חדר רחצה',5.66,31.04,9.83,33.42],['bath1','חדר רחצה ראשי',6.39,33.66,7.99,37.02],['terr','חדר מזוגג מול הבריכה',8.09,33.52,11.29,37.08],
   ['corr','מסדרון לאורך הבריכה',9.95,15.37,11.33,33.75],['master','חדר הורים (קומה א\')',5.66,15.5,11.38,20.31],['mbath','חדר רחצה הורים (קומה א\')',5.66,20.55,8.3,22.79]];
 function wmats(){const H_=hmats();if(H_.wingOk)return H_;const I=imats();Object.assign(H_,{wingOk:1,
   oakF:T_(LOAK(),{roughness:.5,envMapIntensity:.3}),
@@ -8879,7 +8879,7 @@ function wingInterior(hy){const key=hy.toFixed(3);if(wingCache&&wingCache.key===
   // ===== floors
   floor(H_.oakF,WG_.x0,WG_.y0,WG_.x1,33.75,0.02);
   [['wc'],['bath2'],['bath1'],['laundry']].forEach(([id])=>{const r=WING_ROOMS.find(q=>q[0]===id);floor(H_.tileF,r[2],r[3],r[4],r[5],0.025)});
-  floor(mat.deck,7.48,33.87,11.62,38.0,0.03);floor(H_.concrete,5.66,20.12,9.53,23.28,0.025);
+  floor(mat.deck,8.09,33.52,11.45,37.08,0.03);floor(H_.concrete,5.66,20.12,9.53,23.28,0.025);
   floor(H_.oakF,5.66,15.5,11.38,20.31,U+0.02);floor(H_.tileF,5.66,20.5,8.36,22.79,U+0.025);
   // ceilings (plaster) with recessed downlights
   b(H_.plaster,(WG_.x0+WG_.x1)/2,(WG_.y0+WG_.y1)/2,WG_.x1-WG_.x0,WG_.y1-WG_.y0,0.02,H0-0.02);
@@ -8890,7 +8890,7 @@ function wingInterior(hy){const key=hy.toFixed(3);if(wingCache&&wingCache.key===
   wallY(9.68,19.82,23.58,0,H0,H_.concrete,[[20.55,21.4]],0.3);b(H_.steelD,9.5,20.98,0.06,0.82,2.05,0,0);
   wallY(WG_.cw,23.58,33.81,0,H0,H_.wall,[[26.2,27.05],[29.9,30.75],[32.7,33.55]]);
   wallX(17.56,5.66,9.83,0,H0,H_.wall);wallX(19.97,5.66,9.83,0,H0,H_.concrete,[],0.3);wallX(23.43,5.66,9.83,0,H0,H_.concrete,[],0.3);
-  wallX(27.26,5.66,9.83,0,H0,H_.wall);wallX(30.98,5.66,9.83,0,H0,H_.tileB);wallX(33.81,5.66,7.42,0,H0,H_.tileB);wallX(33.81,7.42,11.33,0,H0,H_.wall,[[10.15,11.05]]);wallY(7.42,33.87,37.88,0,H0,H_.wall,[[35.2,36.1]]);
+  wallX(27.26,5.66,9.83,0,H0,H_.wall);wallX(30.98,5.66,9.83,0,H0,H_.tileB);wallX(33.47,5.66,8.04,0,H0,H_.tileB);wallX(33.47,8.04,11.33,0,H0,H_.wall,[[10.15,11.05]]);wallY(8.04,33.52,37.02,0,H0,H_.wall,[[34.34,35.32]],0.1);
   // first floor: bathroom partition with a door at the east end
   wallX(20.43,5.66,8.42,U,H1,H_.wall,[[7.45,8.2]]);
   // ===== guest WC: wall-hung WC, stone vanity with a vessel basin, round mirror, pendant
@@ -8930,15 +8930,15 @@ function wingInterior(hy){const key=hy.toFixed(3);if(wingCache&&wingCache.key===
   b(H_.shower,8.7,32.45,0.02,1.4,2.0,0.03);cyl(H_.chrome,9.3,32.1,0.15,0.02,2.15,20);b(H_.chrome,9.3,31.95,0.02,0.3,0.02,2.17);b(H_.tileF,9.3,32.3,1.0,1.1,0.04,0.0);
   b(H_.towel,9.75,33.1,0.08,0.5,0.7,1.0);
   // ===== north bathroom (A-2: 1.57 m strip): corner bath under the north window, vanity and WC along the west wall, door to the covered terrace
-  b(H_.ceramic,6.43,37.0,1.5,1.5,0.55,0);cyl(H_.wet,6.35,36.92,0.58,0.02,0.555,28);b(H_.chrome,5.72,37.6,0.04,0.04,0.25,0.6);
-  b(H_.oakD,5.92,35.5,0.48,0.95,0.4,0.42);b(H_.quartz,5.92,35.5,0.5,0.99,0.04,0.82);cyl(H_.ceramic,5.95,35.5,0.18,0.1,0.86,20,0.15);b(H_.chrome,5.7,35.5,0.12,0.03,0.22,0.86);b(H_.mirror,5.68,35.5,0.02,0.85,0.9,1.15);
-  b(H_.ceramic,5.98,34.5,0.55,0.38,0.4,0);b(H_.ceramic,5.72,34.5,0.12,0.55,1.1,0);b(H_.towel,7.33,34.6,0.06,0.6,0.6,1.0);
+  b(H_.ceramic,7.22,36.25,1.5,1.5,0.55,0);cyl(H_.wet,7.14,36.17,0.58,0.02,0.555,28);b(H_.chrome,6.44,36.9,0.04,0.04,0.25,0.6);
+  b(H_.oakD,6.65,34.95,0.48,0.95,0.4,0.42);b(H_.quartz,6.65,34.95,0.5,0.99,0.04,0.82);cyl(H_.ceramic,6.68,34.95,0.18,0.1,0.86,20,0.15);b(H_.chrome,6.43,34.95,0.12,0.03,0.22,0.86);b(H_.mirror,6.41,34.95,0.02,0.85,0.9,1.15);
+  b(H_.ceramic,7.25,33.98,0.38,0.55,0.4,0);b(H_.ceramic,7.25,33.72,0.55,0.12,1.1,0);b(H_.towel,7.92,35.9,0.06,0.6,0.6,1.0);
   // ===== covered terrace facing the pool: outdoor sofa, coffee table, armchair, planters
-  b(H_.oakD,8.05,35.9,0.85,2.4,0.36,0);b(H_.linen,8.1,35.9,0.78,2.3,0.12,0.36);b(H_.linen,7.72,35.9,0.18,2.3,0.45,0.4);[34.85,36.95].forEach(y=>b(H_.linen,8.05,y,0.85,0.16,0.62,0));
-  b(H_.cushion,7.9,35.2,0.14,0.45,0.4,0.5);b(H_.cushion,7.9,36.6,0.14,0.45,0.4,0.5);
-  b(H_.oakD,9.35,35.9,0.7,1.2,0.05,0.36);[[-0.3,-0.55],[0.3,-0.55],[-0.3,0.55],[0.3,0.55]].forEach(([dx,dy])=>b(H_.black,9.35+dx,35.9+dy,0.04,0.04,0.36,0));
-  b(H_.oakD,10.55,36.9,0.8,0.8,0.36,0);b(H_.linen,10.55,36.9,0.72,0.72,0.12,0.36);b(H_.linen,10.55,37.25,0.72,0.15,0.45,0.4);
-  put(H_.plant,at(leafBall(0.3,9),8.0,34.35,0.95));cyl(H_.pot,8.0,34.35,0.2,0.6,0,16,0.16);put(H_.plant,at(leafBall(0.4,13),8.0,37.55,1.1));cyl(H_.pot,8.0,37.55,0.24,0.7,0,16,0.2);
+  b(H_.oakD,8.65,35.45,0.85,2.4,0.36,0);b(H_.linen,8.7,35.45,0.78,2.3,0.12,0.36);b(H_.linen,8.32,35.45,0.18,2.3,0.45,0.4);[34.4,36.5].forEach(y=>b(H_.linen,8.65,y,0.85,0.16,0.62,0));
+  b(H_.cushion,8.5,34.75,0.14,0.45,0.4,0.5);b(H_.cushion,8.5,36.15,0.14,0.45,0.4,0.5);
+  b(H_.oakD,9.95,35.45,0.7,1.2,0.05,0.36);[[-0.3,-0.55],[0.3,-0.55],[-0.3,0.55],[0.3,0.55]].forEach(([dx,dy])=>b(H_.black,9.95+dx,35.45+dy,0.04,0.04,0.36,0));
+  b(H_.oakD,10.6,36.4,0.8,0.8,0.36,0);b(H_.linen,10.6,36.4,0.72,0.72,0.12,0.36);b(H_.linen,10.6,36.75,0.72,0.15,0.45,0.4);
+  put(H_.plant,at(leafBall(0.3,9),10.9,34.0,0.95));cyl(H_.pot,10.9,34.0,0.2,0.6,0,16,0.16);put(H_.plant,at(leafBall(0.4,13),8.6,36.75,1.1));cyl(H_.pot,8.6,36.75,0.24,0.7,0,16,0.2);
   // ===== corridor: art along the wall, a bench by the vitrines, planters
   [[18.7],[22.0],[25.2],[28.5]].forEach(([y],i)=>b(i%2?H_.art2:H_.art,9.96,y,0.03,1.1,0.8,1.35));
   b(H_.oak,11.05,24.7,0.38,1.6,0.06,0.42);[24.05,25.35].forEach(y=>b(H_.black,11.05,y,0.32,0.04,0.42,0));
@@ -8959,10 +8959,10 @@ function wingInterior(hy){const key=hy.toFixed(3);if(wingCache&&wingCache.key===
 function roomLight(G,X,Yp,z,i=0.55,d=7){const l=new THREE.PointLight(0xffd7a6,i*1.6,d,2);const [x,zz]=W(X,Yp);l.position.set(x,z,zz);G.add(l);return l}
 
 // ---------- main house, following elevations A-6 (18.11.2024): ground +0.00..+3.75, upper +3.95..+6.95, parapet +7.55
-const UPPER=[[5.42,23.03],[11.63,23.03],[11.63,15.25],[21.23,15.25],[21.23,8.2],[5.74,8.2],[5.74,12.71],[5.42,12.71]];
+const UPPER=[[5.55,23.66],[12.03,23.66],[12.03,15.48],[11.53,15.48],[11.53,14.4],[16.5,14.4],[16.5,14.92],[21.33,14.92],[21.33,7.98],[5.55,7.98]]; // v56: A-3/A-4
 // upper-floor balcony beside the pool under an aluminium pergola (A-3 / A-4 roof plan: 'פרגולה אלומיניום', ~3.2 x 2.6 m, NE corner of the north wing)
-const BALC={x0:8.42,x1:11.63,y0:20.43,y1:23.03};
-const UPPER_B=[[5.42,23.03],[BALC.x0,23.03],[BALC.x0,BALC.y0],[11.63,BALC.y0],[11.63,15.25],[21.23,15.25],[21.23,8.2],[5.74,8.2],[5.74,12.71],[5.42,12.71]];
+const BALC={x0:8.53,x1:12.03,y0:21.08,y1:23.66}; // v56: A-3
+const UPPER_B=[[5.55,23.66],[BALC.x0,23.66],[BALC.x0,BALC.y0],[12.03,BALC.y0],[12.03,15.48],[11.53,15.48],[11.53,14.4],[16.5,14.4],[16.5,14.92],[21.33,14.92],[21.33,7.98],[5.55,7.98]];
 
 // ---------- v38: exterior detailing of the house (wall lights, copings, scuppers, roof kit)
 const DET={sconce:M(0x2b2a28,{roughness:.45,metalness:.7}),glow:M(0xfff1d6,{emissive:0xffc56e,emissiveIntensity:1.1}),coping:M(0x737477,{roughness:.5,metalness:.45}),
@@ -8979,143 +8979,147 @@ function coping(g,poly,y,w=0.34,over=0.03,skip){for(let i=0;i<poly.length;i++){c
 function houseDetails(g,hy,H,UPPER,UPN){
   // up/down wall lights: beside the timber entrance, along the garden and pool facades
   const SF=[4.29,7.98],SB=[31.28,7.98];[4.8,8.1].forEach(u=>wallLight(g,SF,SB,u,2.05,hy,H));
-  const GF=[31.28,15.25],GB=[11.63,15.25];[1.2,6.3,9.2].forEach(u=>wallLight(g,GF,GB,u,2.4,hy,H));
-  const PF=[11.63,15.25],PB=[11.63,38.0];[2.2,10.6,17.9].forEach(u=>wallLight(g,PF,PB,u,2.4,hy,H));
-  const WF=[5.42,38.0],WB=[5.42,15.25];[3.4,10.8,17.6].forEach(u=>wallLight(g,WF,WB,u,2.3,hy,H));
+  const PF=[11.53,15.25],PB=[11.53,38.0];[5.25,12.75,16.75].forEach(u=>wallLight(g,PF,PB,u,2.4,hy,H)); // v56: on the solid panels between the vitrines
+  const WF=[5.55,33.66],WB=[5.55,15.25];[6.5,13.0].forEach(u=>wallLight(g,WF,WB,u,2.3,hy,H));
   // metal copings on the ground-floor roof edges (+3.95) and rain scuppers with stain-free drip spouts
-  coping(g,H,hy+3.95,0.32,0.03,UPPER);
-  [[[4.29,15.25],[4.29,7.98],2.0],[[5.42,38.0],[5.42,15.25],8.0],[[11.63,38.0],[5.42,38.0],1.2]].forEach(([a,b,u])=>{const sg=outward(a,b,H),q=seg(a,b,u,u),o=0.18*sg;
+  [[[5.55,33.66],[5.55,15.25],8.0]].forEach(([a,b,u])=>{const sg=outward(a,b,H),q=seg(a,b,u,u),o=0.18*sg;
     g.add(box(q.p[0]+q.n[0]*o,q.p[1]+q.n[1]*o,0.12,0.36,0.08,q.ang+90,DET.scupper,hy+3.62))});
 }
-function roofKit(g,hy,P,UPN){
+function roofKit(g,hy,P,UPN){ // v56: no rooftop solar heater / AC units (not in the A-4 roof plan)
   coping(g,P,hy+6.95,0.3,0.03);coping(g,UPN,hy+7.55,0.34,0.03);
-  // Israeli rooftop solar water heater: two collectors tilted 30° to the south + horizontal tank, on a galvanised stand (behind the parapet line)
-  const y=hy+6.96;[17.3,18.45].forEach(X=>{const [x,z]=W(X,13.4),pn=new THREE.Mesh(new THREE.BoxGeometry(1.0,0.06,2.0),DET.panel);pn.position.set(x,y+0.75,z);pn.rotation.x=30*Math.PI/180;g.add(pn);
-    const fr=new THREE.Mesh(new THREE.BoxGeometry(1.04,0.04,2.04),DET.steel);fr.position.set(x,y+0.72,z);fr.rotation.x=30*Math.PI/180;g.add(fr);
-    [[-0.45,0.85,0.25],[0.45,0.85,0.25],[-0.45,-0.85,1.25],[0.45,-0.85,1.25]].forEach(([dx,dz,hh])=>{const l=new THREE.Mesh(new THREE.BoxGeometry(0.04,hh,0.04),DET.steel);l.position.set(x+dx,y+hh/2,z+dz*0.87);g.add(l)})});
-  {const [x,z]=W(17.875,14.55),t=new THREE.Mesh(new THREE.CylinderGeometry(0.29,0.29,1.75,24),DET.white);t.rotation.z=Math.PI/2;t.position.set(x,y+1.42,z);g.add(t);
-    [-0.6,0.6].forEach(dx=>{const s=new THREE.Mesh(new THREE.BoxGeometry(0.05,1.13,0.5),DET.steel);s.position.set(x+dx,y+0.565,z);g.add(s)})}
-  // three AC condensers on rubber pads with a pipe tray to the shaft
-  [7.0,8.0,9.0].forEach((X,i)=>{const [x,z]=W(X,14.55),c=new THREE.Mesh(new THREE.BoxGeometry(0.85,0.6,0.32),DET.white);c.position.set(x,y+0.36,z);g.add(c);
-    const f=new THREE.Mesh(new THREE.CircleGeometry(0.21,24),DET.grill);f.position.set(x-0.08,y+0.38,z+0.161);g.add(f);
-    const pd=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.06,0.36),DET.grill);pd.position.set(x,y+0.03,z);g.add(pd)});
-  {const [x,z]=W(10.6,14.62),tr=new THREE.Mesh(new THREE.BoxGeometry(3.6,0.08,0.18),DET.pipe);tr.position.set(x-0.9,y+0.1,z);g.add(tr)}
 }
 function onEdge(target,poly,a,b,specs,y0){const sg=outward(a,b,poly);specs.forEach(([u0,u1,z0,z1,k,o])=>panel(target,a,b,u0,u1,z0,z1,k,y0,sg,o||{}))}
 function buildHouse(){
   const o=lay.objects.house,inner=new THREE.Group(),outer=new THREE.Group(),hy=Y(HOUSE_FLOOR),H=SITE.house;
   // v20 facade palette (A-6): C = exposed architectural concrete, Wt = white plaster, S = smooth grey concrete panel, T = timber
   const C=mat.beton,Wt=mat.whiteP,S=mat.betonS,T=mat.cedar,ALL=(m,z0=-9,z1=99)=>[0,1e3,z0,z1,m];
-  // basement-stair strip (west) in concrete; pantry block (east, A-4 roof +3.55) in white plaster; the 7.84 m parking east of it is OPEN (A-2/A-4 'חנייה לא מקורה')
-  {const g=prism([[4.288,7.982],[5.74,7.982],[5.74,15.249],[4.288,15.249]],3.95,C,hy);g.userData.key='house';inner.add(g)}
-  const PB=[[21.23,7.982],[23.24,7.982],[23.24,15.249],[21.23,15.249]];
-  {const g=prism(PB,3.95,Wt,hy);g.userData.key='house';inner.add(g);onEdge(inner,PB,[23.24,7.982],[23.24,15.249],[[1.6,3.6,1.2,2.2,'win',{cols:2,rows:1}],[5.9,6.8,0,2.1,'door',{cols:1,rows:1}]],hy)}
-  { // open parking with a concrete frame: beams at +3.35..+3.95 on the street, drive and pool sides, corner columns, aluminium slat screen to the pool garden
-    const PK=new THREE.Group(),x0=23.24,x1=31.276,y0=7.982,y1=15.249,bz=3.35,bh=0.6;
+  const UPN=[[5.55,23.66],[BALC.x0,23.66],[BALC.x0,BALC.y0],[12.03,BALC.y0],[12.03,15.48],[5.55,15.48]];
+  // ===== v56: house shell re-traced wall by wall from the architect's set (A-2 ground, A-3 first floor, A-4 roof, A-5 sections, A-6 elevations, 18.11.2024).
+  // Convention: each wall line is its OUTER face, walked with the outside on the right; the wall body goes to the left (side -1); panels sit on the outside (sgn +1).
+  const OW=(a,b,sp)=>sp.forEach(([u0,u1,z0,z1,k,op])=>panel(inner,a,b,u0,u1,z0,z1,k,hy,1,op||{}));
+  const HK=g=>{g.userData.key='house';inner.add(g);return g};
+  // --- street front (A-2 Y 7.98-8.22, A-6 elev.1): one exposed-concrete wall +0.00..+3.95 from the stair court (X 4.29) to the parking end (X 31.33)
+  hwall(inner,[4.29,7.98],[12.99,7.98],0.24,-1,0,3.95,[],hy,[ALL(C)]);
+  // entrance recess X 13.23-16.50, 1.10 m deep: timber-clad back wall with the 2.20 m pivot door (+3.00), concrete side walls, lintel +3.37..+3.95
+  hwall(inner,[13.23,7.98],[13.23,9.32],0.24,-1,0,3.95,[],hy,[ALL(C)]);
+  hwall(inner,[16.50,9.32],[16.50,7.98],0.24,-1,0,3.95,[],hy,[ALL(C)]);
+  hwall(inner,[13.23,9.08],[16.50,9.08],0.24,-1,0,3.95,[[0.53,2.73,[[0,3.0]]]],hy,[ALL(T,-9,3.37),ALL(C,3.37)]);
+  OW([13.23,9.08],[16.50,9.08],[[0.53,2.73,0,3.0,'pivot',{off:0.06}]]);
+  HK(prism([[13.23,7.98],[16.50,7.98],[16.50,9.08],[13.23,9.08]],0.58,C,hy+3.37));
+  // kitchen + pantry + parking front: continuous wall, one ribbon window X 16.74-22.53 at +1.52..+2.12 (A-6 elev.1)
+  hwall(inner,[16.50,7.98],[31.33,7.98],0.24,-1,0,3.95,[[0.24,6.03,[[1.52,2.12]]]],hy,[ALL(C)]);
+  OW([16.50,7.98],[31.33,7.98],[[0.24,6.03,1.52,2.12,'win',{cols:5,rows:1,clear:true}]]);
+  // --- basement stair court X 4.49-5.55 (A-2/A-5 section 2-2): open to the sky, 20 cm parapet +1.10 on the west, steps down to -1.55
+  hwall(inner,[4.29,17.42],[4.29,8.22],0.2,-1,0,1.1,[],hy,[ALL(C)]);
+  {const K=new THREE.Group(),x0=4.49,x1=5.55,d=-1.55;K.add(flat([[x0,8.22],[x1,8.22],[x1,11.0],[x0,11.0]],mat.pave,hy+d));
+    for(let i=0;i<10;i++){const y0=11.0+i*0.4,top=d+(i+1)*0.155;K.add(boxW((x0+x1)/2,y0+0.2,x1-x0,0.4,top-d+0.02,0,mat.pave,hy+d-0.02))}
+    K.add(boxW((x0+x1)/2,15.2,x1-x0,0.6,-d,0,mat.pave,hy+d));
+    K.traverse(m=>{if(m.isMesh){m.receiveShadow=true;m.userData.key='house'}});inner.add(K)}
+  // --- main wing west wall X 5.55-5.79 (A-2), exposed concrete; two tall slot windows 0.80 x 3.20 (A-6 elev.2)
+  hwall(inner,[5.55,15.48],[5.55,8.22],0.24,-1,0,3.95,[[2.26,3.06,[[0,3.2]]],[5.86,6.66,[[0,3.2]]]],hy,[ALL(C)]);
+  OW([5.55,15.48],[5.55,8.22],[[2.26,3.06,0,3.2,'glass',{cols:1,rows:2,clear:true}],[5.86,6.66,0,3.2,'glass',{cols:1,rows:2,clear:true}]]);
+  // --- upper volume over the great room (A-3/A-4/A-6): a tapered concrete frame, 0.83 m deep at the street, thinning to the wall line at the back;
+  // glazing X 5.79-12.99 and 16.74-21.08 (+3.95..+6.67) with a timber panel between, set in the frame at Y 8.72; top band +6.67..+7.55 white
+  HK(prism([[4.96,7.98],[5.79,7.98],[5.79,15.52],[5.54,15.52]],3.6,C,hy+3.95));
+  HK(prism([[21.09,7.98],[21.89,7.98],[21.33,14.95],[21.09,14.95]],3.6,C,hy+3.95));
+  HK(prism([[4.96,7.98],[21.89,7.98],[21.89,8.72],[4.96,8.72]],0.88,Wt,hy+6.67));
+  [[4.96,5.79],[21.08,21.89]].forEach(([a,b])=>HK(boxW((a+b)/2,7.995,b-a,0.03,2.72,0,Wt,hy+3.95)));
+  HK(prism([[5.55,8.22],[21.09,8.22],[21.09,8.72],[5.55,8.72]],0.3,C,hy+3.65));
+  hwall(inner,[5.79,8.72],[21.09,8.72],0.2,-1,3.95,6.67,[[0,7.2,[[3.95,6.67]]],[10.95,15.3,[[3.95,6.67]]]],hy,[ALL(T)]);
+  OW([5.79,8.72],[21.09,8.72],[[0,7.2,3.95,6.67,'glass',{cols:5,rows:3,clear:true}],[10.95,15.3,3.95,6.67,'glass',{cols:3,rows:3,clear:true}]]);
+  // --- great room north face (A-2/A-5 section 2-2): two double-height curtain walls 0..+6.65, west part at Y 14.40, east part at Y 14.92, concrete column between
+  OW([16.50,14.40],[11.53,14.40],[[0,4.97,0.04,6.65,'glass',{cols:4,rows:3,clear:true}]]);
+  OW([21.09,14.92],[16.84,14.92],[[0,4.25,0.04,6.65,'glass',{cols:3,rows:3,clear:true}]]);
+  HK(boxW(16.67,14.615,0.34,0.79,6.65,0,C,hy));
+  // --- pantry X 21.09-23.33 (A-2), roof +3.55 behind the +3.95 street parapet; east face: window +1.20..+2.50 and door (A-6 elev.4)
+  const PB=[[21.09,8.22],[23.33,8.22],[23.33,15.03],[21.09,15.03]];
+  HK(prism(PB,3.95,Wt,hy));OW([23.33,8.22],[23.33,15.03],[[1.0,3.0,1.2,2.5,'win',{cols:2,rows:1}],[5.54,6.4,0,2.1,'door',{cols:1,rows:1}]]);
+  HK(boxW(22.21,15.02,2.24,0.02,3.95,0,C,hy));
+  { // open parking (A-2/A-4 'not roofed'): street wall above, tapered concrete beam +3.35..+3.95 along the east and north sides, NE column 0.50 x 0.24,
+    // aluminium slat screen to the pool garden X 23.58-30.83 under the north beam (A-6 elev.3)
+    const PK=new THREE.Group(),x0=23.33,x1=31.33,y0=8.22,y1=15.03,bz=3.35;
     PK.add(flat([[x0,y0],[x1,y0],[x1,y1],[x0,y1]],mat.pave,hy+0.01));
-    [[ (x0+x1)/2,y1-0.12,x1-x0,0.24],[(x0+x1)/2,y0+0.12,x1-x0,0.24],[x1-0.12,(y0+y1)/2,0.24,y1-y0]].forEach(([X,Yp,w,d])=>PK.add(boxW(X,Yp,w,d,bh,0,C,hy+bz,bz)));
-    [[x1-0.15,y0+0.15],[x1-0.15,y1-0.15]].forEach(([X,Yp])=>PK.add(boxW(X,Yp,0.3,0.3,bz,0,C,hy,0)));
-    for(let z=0.1;z<bz-0.1;z+=0.2)PK.add(box((x0+x1)/2-0.1,y1-0.1,x1-x0-0.5,0.05,0.13,0,mat.slat,hy+z));
-    {const pm=M(0xf3f1ea,{roughness:.55});[8.55,11.62,14.7].forEach(Yp=>PK.add(box(28.2,Yp,5.6,0.1,0.005,0,pm,hy+0.02)));[10.08,13.16].forEach(Yp=>PK.add(box(25.75,Yp,0.15,1.5,0.1,0,M(0x46464a,{roughness:.8}),hy)))}
+    PK.add(prism([[x0,y1],[x1,y1],[x1,y0],[31.09,y0],[30.99,14.65],[x0,14.79]],0.6,C,hy+bz));
+    PK.add(boxW(31.08,14.91,0.5,0.24,bz,0,C,hy,0));PK.add(boxW(23.455,14.91,0.25,0.24,bz,0,C,hy,0));
+    for(let z=0.1;z<bz-0.1;z+=0.2)PK.add(box(27.205,14.92,7.25,0.05,0.13,0,mat.slat,hy+z));
+    {const pm=M(0xf3f1ea,{roughness:.55});[8.75,11.8,14.6].forEach(Yp=>PK.add(box(28.2,Yp,5.6,0.1,0.005,0,pm,hy+0.02)));[10.2,13.2].forEach(Yp=>PK.add(box(25.75,Yp,0.15,1.5,0.1,0,M(0x46464a,{roughness:.8}),hy)))}
     PK.traverse(m=>{if(m.isMesh){m.castShadow=m.receiveShadow=true;m.userData.key='parkframe'}});inner.add(PK);
-    INFO.parkframe={t:'חנייה לא מקורה ליד המזווה',d:'לפי תכנית קומת קרקע ותכנית הגג (א-2, א-4): חנייה פתוחה כ-7.84 × 6.55 מ\' בשיפוע 1.9%, ללא גג. מסגרת בטון אדריכלי: קורות בגובה +3.35 עד +3.95 לרחוב, לדרך ולצד הבריכה, עמודים בפינות ומסך שלבי אלומיניום כלפי גן הבריכה.'}}
-  { // v22 frames, re-read from A-3 (first floor) and A-4 (roof): (1) top frame +6.65..+7.55 north of the great room, tapered in plan as drawn
-    // (thin at the wing and at the great room, thickest at the corner over the deck); (2) a U-shaped frame +3.20..+3.75 that wraps the north part of the pool:
-    // along the wing, across 0.5 m beyond the pool end, and back along the east coping to the top-frame column, on 30x30 columns (A-2)
+    INFO.parkframe={t:'חנייה לא מקורה ליד המזווה',d:'לפי א-2, א-4 וחזיתות א-6: חנייה פתוחה 8.0 × 6.8 מ\' ללא גג. לרחוב: קיר בטון אדריכלי רציף עד +3.95 (כמו כל חזית הרחוב). מזרח וצפון: קורת בטון משתפלת +3.35 עד +3.95, עמוד בפינה הצפון-מזרחית, ומסך שלבי אלומיניום כלפי גן הבריכה. הכניסה לרכב מהצד המזרחי.'}}
+  { // frames (A-3/A-4): (1) tapered L +6.65..+7.55 north and east of the great-room roof (thick at the NE corner, thin at its ends);
+    // (2) U frame +3.20..+3.75 wrapping the north part of the pool: along the wing's pool face, across past the pool end, and back along the east coping; 30x30 columns (A-2)
     const F=new THREE.Group(),gp=Y(177.45)+0.03,col=(X,Yp,w,d,top)=>F.add(boxW(X,Yp,w,d,hy+top-gp,0,C,gp,0));
-    F.add(prism([[11.63,24.02],[21.23,24.02],[21.23,15.25],[20.95,15.25],[20.6,23.48],[11.63,23.74]],0.9,C,hy+6.65));
-    F.add(prism([[11.63,24.02],[21.23,24.02],[21.23,24.07],[11.63,24.07]],0.05,mat.alu,hy+7.5));
-    col(17.41,23.88,0.3,0.3,6.65);col(21.05,21.8,0.3,0.5,6.65);
-    [[(11.63+17.56)/2,42.0,17.56-11.63,0.3],[17.41,(23.74+42.15)/2,0.3,42.15-23.74],[11.78,(38.0+42.15)/2,0.3,42.15-38.0]].forEach(([X,Yp,w,d])=>F.add(boxW(X,Yp,w,d,0.55,0,C,hy+3.2,3.2)));
-    [[17.41,32.6],[17.41,42.0],[11.78,42.0]].forEach(([X,Yp])=>col(X,Yp,0.3,0.3,3.2));
+    F.add(prism([[11.98,23.44],[21.33,23.44],[21.33,14.95],[21.09,14.95],[20.72,23.17],[12.03,23.2]],0.9,C,hy+6.65));
+    col(17.34,23.32,0.3,0.3,6.65);col(21.21,21.8,0.24,0.5,6.65);
+    [[(11.69+17.49)/2,41.94,17.49-11.69,0.3],[17.34,(23.44+42.09)/2,0.3,42.09-23.44],[11.84,(23.66+42.09)/2,0.3,42.09-23.66]].forEach(([X,Yp,w,d])=>F.add(boxW(X,Yp,w,d,0.55,0,C,hy+3.2,3.2)));
+    [[17.34,32.45],[16.64,41.94],[11.84,41.94]].forEach(([X,Yp])=>col(X,Yp,0.3,0.3,3.2));
     F.traverse(m=>{if(m.isMesh){m.castShadow=m.receiveShadow=true;m.userData.key='frame'}});inner.add(F);
-    INFO.frame={t:'מסגרות הבטון סביב הבריכה',d:'לפי תכנית קומה א\' ותכנית הגג (א-3, א-4) וחזיתות 2-4: מסגרת עליונה +6.65 עד +7.55 מצפון לסלון, משתפלת בתכנית ועבה בפינה, על עמודים 30×30 ו-30×50; ומסגרת בצורת ח\' +3.20 עד +3.75 שעוטפת את החלק הצפוני של הבריכה: לאורך האגף, מעבר לקצה הבריכה וחזרה לאורך הקופינג המזרחי, על עמודים 30×30. אפשר להסיר מהתמונה.'}}
-  const UPN=[[5.42,23.03],[BALC.x0,23.03],[BALC.x0,BALC.y0],[11.63,BALC.y0],[11.63,15.249],[5.42,15.249]];
-  // v19: north wing shell (walls with the A-2 openings), slab over the rooms, roof terrace; first floor shell (A-3), its roof goes on the 'roofs' layer
-  // wing (A-6 elevations 2-4): white plaster on the west, smooth grey panels between the pool vitrines, exposed-concrete roof-slab band +3.20..+3.95
-  hwall(inner,[5.417,38.003],[5.417,15.249],0.24,-1,0,3.95,[[0.3,1.1,[[1.4,2.2]]],[5.2,6.2,[[1.4,2.2]]],[8.1,9.7,[[1.2,2.5]]],[11.8,13.4,[[1.2,2.5]]],[15.8,17.0,[[1.1,2.1]]],[18.2,19.1,[[0,2.2]]],[21.1,21.8,[[1.5,2.1]]]],hy,[ALL(Wt),[0.6,4.26,-9,3.2,S],ALL(C,3.2)]);
-  hwall(inner,[11.626,15.249],[11.626,38.003],0.3,-1,0,3.95,[[0.15,1.4,[[0.05,3.15]]],[3.05,10.15,[[0.05,3.15]]],[12.05,17.65,[[0.05,3.15]]],[18.62,22.76,[[0,3.2]]]],hy,[ALL(S),[17.65,18.62,-9,3.2,C],ALL(C,3.2)]);
-  // north end: covered terrace open to the pool (A-2: RHS 100x100 steel column at the corner, slab overhang 60 cm), bathroom window
-  hwall(inner,[11.626,38.003],[5.417,38.003],0.24,-1,0,3.95,[[0,4.2,[[0,3.2]]],[4.35,5.0,[[1.4,2.2]]]],hy,[ALL(S),[5.1,1e3,-9,3.2,Wt],ALL(C,3.2)]);
-  // master suite: concrete at the north-west corner and top band, white plaster elsewhere, grey panel around the north window
-  hwall(inner,[5.417,23.03],[5.417,15.249],0.24,-1,3.95,7.55,[[1.0,2.6,[[4.8,6.05]]],[4.5,6.5,[[4.8,6.05]]]],hy,[ALL(Wt),[0,1.83,-9,99,C]]);
-  hwall(inner,[11.626,15.249],[11.626,20.43],0.25,-1,3.95,7.55,[[0.3,5.0,[[3.95,6.65]]]],hy,[ALL(S),[0,0.5,-9,99,C],ALL(C,6.65)]);
-  hwall(inner,[8.42,23.03],[5.417,23.03],0.24,-1,3.6,7.55,[[0.6,2.4,[[4.8,6.05]]]],hy,[ALL(Wt),[0,2.7,-9,6.65,S],ALL(C,6.65)]);
-  hwall(inner,[8.42,20.43],[8.42,23.03],0.24,-1,3.6,7.55,[[0.9,1.7,[[4.9,6.0]]]],hy,[ALL(Wt),ALL(C,6.65)]);
-  hwall(inner,[11.626,20.43],[8.42,20.43],0.24,-1,3.6,7.55,[[0.25,2.96,[[3.62,6.6]]]],hy,[ALL(Wt),ALL(C,6.65)]);
-  {const S1=[[5.5,15.3],[11.55,15.3],[11.55,23.03],[5.5,23.03]],S2=[[5.5,23.03],[11.55,23.03],[11.55,37.92],[5.5,37.92]],SB=[[8.42,20.43],[11.55,20.43],[11.55,23.03],[8.42,23.03]];
-    [[S1,0.4],[S2,0.75],[SB,0.35]].forEach(([p,h])=>{const m=prism(p,h,hmats().plaster,hy+3.2+(p===SB?0.4:0));m.userData.key='house';inner.add(m)});
-    // slab overhang over the covered terrace (dashed in A-2): 60 cm north and east, exposed concrete edge; steel RHS 100x100 corner column
-    [[[5.2,37.92],[12.23,37.92],[12.23,38.6],[5.2,38.6]],[[11.55,33.85],[12.23,33.85],[12.23,37.92],[11.55,37.92]]].forEach(p=>{const m=prism(p,0.55,C,hy+3.2);m.userData.key='house';inner.add(m)});
-    {const c=box(11.57,37.95,0.1,0.1,3.2,0,WM.steel||mat.alu,hy);c.userData.key='house';inner.add(c)}
-    inner.add(flat([[5.66,23.27],[11.33,23.27],[11.33,37.76],[5.66,37.76]],mat.terrace,hy+3.96))}
+    INFO.frame={t:'מסגרות הבטון סביב הבריכה',d:'לפי א-3, א-4 וחזיתות א-6: מסגרת L משתפלת +6.65 עד +7.55 מצפון וממזרח לגג הסלון, ומסגרת בצורת ח\' +3.20 עד +3.75 שעוטפת את החלק הצפוני של הבריכה (לאורך האגף, מעבר לקצה הבריכה וחזרה לאורך הקופינג המזרחי), על עמודים 30×30 לפי א-2. אפשר להסיר מהתמונה.'}}
+  // ===== north wing (A-2) =====
+  // west wall X 5.55-5.79: white plaster, smooth grey panels around the guest-WC window and the recessed laundry door, concrete roof band +3.20..+3.75
+  hwall(inner,[5.55,33.66],[5.55,15.48],0.24,-1,0,3.75,[[1.64,2.64,[[1.4,2.2]]],[3.84,5.44,[[1.2,2.2]]],[7.54,9.14,[[1.2,2.2]]],[11.52,12.65,[[1.1,2.1]]],[14.14,16.2,[[0,2.4]]],[16.54,17.54,[[1.4,2.2]]]],hy,[ALL(Wt),[14.0,17.9,-9,3.2,S],ALL(C,3.2)]);
+  OW([5.55,33.66],[5.55,15.48],[[1.64,2.64,1.4,2.2,'win',{cols:1,rows:1,clear:true}],[3.84,5.44,1.2,2.2,'win',{cols:2,rows:1,clear:true}],[7.54,9.14,1.2,2.2,'win',{cols:2,rows:1,clear:true}],[11.52,12.65,1.1,2.1,'win',{cols:1,rows:1,clear:true}],[16.54,17.54,1.4,2.2,'win',{cols:1,rows:1,clear:true}]]);
+  // laundry door recess 0.60 m deep (A-2 Y 17.46-19.52)
+  hwall(inner,[6.15,19.52],[6.15,17.46],0.24,-1,0,2.4,[[0.6,1.5,[[0,2.2]]]],hy,[ALL(S)]);OW([6.15,19.52],[6.15,17.46],[[0.6,1.5,0,2.2,'door',{cols:1,rows:1}]]);
+  [17.51,19.47].forEach(Yp=>HK(boxW(5.85,Yp,0.6,0.1,2.4,0,S,hy)));HK(boxW(5.85,18.49,0.6,2.06,0.06,0,S,hy+2.4));
+  // east wall X 11.29-11.53: smooth grey concrete panels with four fixed vitrines (A-2 / A-6 elev.4 'ויטרינה קבועה ללא גישה לבריכה')
+  hwall(inner,[11.53,14.21],[11.53,33.52],0.24,-1,0,3.75,[[2.0,3.74,[[0.05,3.15]]],[10.84,12.58,[[0.05,3.15]]],[15.19,16.93,[[0.05,3.15]]],[18.24,19.31,[[0,3.2]]]],hy,[ALL(S),ALL(C,3.2)]);
+  OW([11.53,14.21],[11.53,33.52],[[2.0,3.74,0.05,3.15,'glass',{cols:2,rows:2,clear:true}],[10.84,12.58,0.05,3.15,'glass',{cols:2,rows:2,clear:true}],[15.19,16.93,0.05,3.15,'glass',{cols:2,rows:2,clear:true}],[18.24,19.31,0.02,3.2,'glass',{cols:1,rows:2,clear:true}]]);
+  // north end: glazed room X 8.09-11.53 (fixed glass east and north, RHS 100x100 corner column) and the main bathroom X 6.15-8.09 set back from the west face
+  OW([11.53,33.52],[11.53,37.1],[[0,3.58,0.02,3.2,'glass',{cols:3,rows:2,clear:true}]]);
+  OW([11.45,37.1],[8.09,37.1],[[0,3.36,0.02,3.2,'glass',{cols:3,rows:2,clear:true}]]);
+  HK(box(11.46,37.08,0.1,0.1,3.2,0,WM.steel||mat.alu,hy));
+  hwall(inner,[6.15,33.66],[5.55,33.66],0.24,-1,0,3.2,[],hy,[ALL(S)]);
+  hwall(inner,[6.15,37.26],[6.15,33.66],0.24,-1,0,3.2,[],hy,[ALL(S)]);
+  hwall(inner,[8.09,37.26],[6.15,37.26],0.24,-1,0,3.2,[[0.4,1.4,[[1.4,2.2]]]],hy,[ALL(S)]);OW([8.09,37.26],[6.15,37.26],[[0.4,1.4,1.4,2.2,'win',{cols:1,rows:1,clear:true}]]);
+  // wing roof slab +3.20..+3.75 (A-4 outline X 5.55-11.60, Y to 37.95), roof terrace with a 1.10 m glass rail (A-6 elev.2: +4.80)
+  {const S1=[[5.55,15.48],[12.03,15.48],[12.03,23.66],[5.55,23.66]],S2=[[5.55,23.66],[11.6,23.66],[11.6,37.95],[5.55,37.95]];
+    HK(prism(S1,0.4,hmats().plaster,hy+3.2));HK(prism(S2,0.55,C,hy+3.2));
+    inner.add(flat([[5.79,23.9],[11.36,23.9],[11.36,37.71],[5.79,37.71]],mat.terrace,hy+3.76))}
+  // ===== master suite on the first floor (A-3): X 5.54-12.03, Y 15.48-23.66, balcony X 8.53-12.03 x 21.08-23.66 under the aluminium pergola
+  hwall(inner,[5.55,23.66],[5.55,15.48],0.24,-1,3.6,7.55,[[1.42,2.64,[[4.75,6.65]]]],hy,[ALL(Wt),[0,2.81,-9,99,C],ALL(C,6.65)]);
+  OW([5.55,23.66],[5.55,15.48],[[1.42,2.64,4.75,6.65,'win',{cols:1,rows:2,clear:true}]]);
+  hwall(inner,[8.53,23.66],[5.55,23.66],0.24,-1,3.6,7.55,[[1.74,2.34,[[4.8,6.05]]]],hy,[ALL(Wt),ALL(C,6.65)]);OW([8.53,23.66],[5.55,23.66],[[1.74,2.34,4.8,6.05,'win',{cols:1,rows:1,clear:true}]]);
+  hwall(inner,[8.53,21.08],[8.53,23.66],0.24,-1,3.6,7.55,[],hy,[ALL(Wt),ALL(C,6.65)]);
+  hwall(inner,[12.03,21.08],[8.53,21.08],0.24,-1,3.6,7.55,[[0.55,3.41,[[3.62,6.6]]]],hy,[ALL(Wt),ALL(C,6.65)]);
+  hwall(inner,[12.03,15.48],[12.03,21.08],0.25,-1,3.6,7.55,[[0.69,4.69,[[3.62,6.62]]]],hy,[ALL(S),[0,0.69,-9,99,C],[4.69,9,-9,99,C],ALL(C,6.62)]);
+  OW([12.03,15.48],[12.03,21.08],[[0.69,4.69,3.62,6.62,'glass',{cols:3,rows:3,clear:true}]]);
+  hwall(inner,[5.79,15.48],[12.03,15.48],0.24,-1,3.6,7.55,[[4.55,5.35,[[3.6,5.8]]]],hy,false);
   inner.add(wingInterior(hy));
-  { const cap=(pts,z)=>{for(let k=0;k<pts.length;k++){const a=pts[k],b=pts[(k+1)%pts.length],L=Math.hypot(b[0]-a[0],b[1]-a[1]);if(L<0.2)continue;const q=seg(a,b,0,L);inner.add(box(q.p[0],q.p[1],L+0.06,0.34,0.035,q.ang,mat.alu,hy+z))}};
-    cap(UPPER_B,7.55);cap([[5.417,23.03],[11.626,23.03],[11.626,38.003],[5.417,38.003]].slice(0),3.95);cap([[4.288,7.982],[5.74,7.982],[5.74,15.249],[4.288,15.249]],3.95);cap([[21.23,7.982],[23.24,7.982],[23.24,15.249],[21.23,15.249]],3.95) }
+  { const cap=(pts,z,w=0.34)=>{for(let k=0;k<pts.length;k++){const a=pts[k],b=pts[(k+1)%pts.length],L=Math.hypot(b[0]-a[0],b[1]-a[1]);if(L<0.2)continue;const q=seg(a,b,0,L);inner.add(box(q.p[0],q.p[1],L+0.06,w,0.035,q.ang,mat.alu,hy+z))}};
+    cap(UPN,7.55);cap([[5.55,23.66],[11.6,23.66],[11.6,37.95],[5.55,37.95]],3.75);cap(PB,3.95);
+    {const q=seg([4.29,8.1],[31.33,8.1],0,27.04);inner.add(box(q.p[0],q.p[1],27.1,0.3,0.035,0,mat.alu,hy+3.95))} }
   {const HL=new THREE.Group();HL.userData.key='lights';
     [[8.4,10.9,2.6,0.6,9],[14.6,12.9,2.6,0.6,9],[18.6,11.9,2.6,0.6,9],[12.8,9.0,2.6,0.35,6],[8.6,13.6,4.6,0.4,8],
      [7.7,16.4,2.4,0.3,4],[7.7,18.7,2.4,0.3,4],[7.6,21.7,2.4,0.35,5],[7.6,25.3,2.4,0.4,5],[7.8,29.1,2.4,0.4,5],[7.6,32.4,2.4,0.3,4],[8.2,35.8,2.4,0.4,5.5],[10.6,20.0,2.6,0.3,5],[10.6,28.0,2.6,0.3,5],
      [8.4,17.9,3.6+2.4,0.5,6.5],[7.0,21.6,3.6+2.3,0.3,4]].forEach(([X,Yp,z,i,d])=>roomLight(HL,X,Yp,hy+z,i,d));
     HL.visible=false;inner.add(HL);IN_LIGHTS.house=HL}
-  // great room (A-2/A-3): one double-height volume, 6.65 m clear, walls with real openings; its roof slab sits on the 'roofs' layer
-  // street front (A-6 elevation 1): ground floor in exposed concrete with a timber-clad entrance; upper volume white plaster, ribbon glazing split by a timber panel
-  hwall(inner,[5.74,7.982],[21.23,7.982],0.47,-1,0,3.95,[[8.26,10.46,[[0,2.6]]],[11.45,15.24,[[1.5,2.1]]]],hy,[ALL(C),[7.45,10.72,-9,3.35,T]]);
-  hwall(inner,[5.74,8.2],[21.23,8.2],0.25,-1,3.95,7.55,[[0.7,7.45,[[4.3,6.55]]],[10.72,14.8,[[4.3,6.55]]]],hy,[ALL(Wt),[7.45,10.72,-9,6.65,T]]);
-  hwall(inner,[11.626,15.249],[21.23,15.249],0.25,1,0,7.55,[[0.2,0.75,[[3.95,6.65]]],[0.75,9.35,[[0.05,3.2],[3.95,6.65]]]],hy,[ALL(C)]);
-  hwall(inner,[5.74,15.249],[11.626,15.249],0.25,1,0,7.55,[[4.3,5.1,[[0,2.2]]],[5.15,5.82,[[3.6,5.8]]]],hy,false);
-  hwall(inner,[5.74,8.2],[5.74,15.249],0.25,1,0,7.55,[],hy,[ALL(C)]);
-  hwall(inner,[21.23,7.982],[21.23,15.249],0.25,-1,3.95,7.55,[[2.02,5.52,[[4.8,6.05]]]],hy,[ALL(C)]);hwall(inner,[21.23,7.982],[21.23,15.249],0.25,-1,0,3.95,[[6.02,6.92,[[0,2.2]]]],hy,false);
   inner.add(houseInterior(hy));try{inner.add(houseLife(hy))}catch(e){console.warn('houseLife',e)}
   { // balcony: timber deck, glass rail to the pool, sliding glass doors, aluminium louvre pergola on slim posts
     const P=new THREE.Group(),B=BALC,bw=B.x1-B.x0,bd=B.y1-B.y0,cx=(B.x0+B.x1)/2,cy=(B.y0+B.y1)/2,al=mat.alu,top=hy+6.95+0.3;
-    P.add(flat([[B.x0,B.y0],[B.x1,B.y0],[B.x1,B.y1],[B.x0,B.y1]],mat.deck,hy+3.97));
-    P.add(box(B.x1-0.05,cy,0.04,bd,1.05,0,mat.glass,hy+3.97));P.add(box(cx,B.y1-0.05,bw,0.04,1.05,0,mat.glass,hy+3.97));
-    P.add(box(B.x1-0.05,cy,0.06,bd,0.05,0,al,hy+3.97+1.05));P.add(box(cx,B.y1-0.05,bw,0.06,0.05,0,al,hy+3.97+1.05));
-    P.add(box(B.x1-0.12,B.y1-0.12,0.14,0.14,top-hy-3.97,0,al,hy+3.97));P.add(box(B.x1-0.12,cy,0.12,0.12,top-hy-3.97,0,al,hy+3.97));
+    P.add(flat([[B.x0,B.y0],[B.x1,B.y0],[B.x1,B.y1],[B.x0,B.y1]],mat.deck,hy+3.79));
+    P.add(box(B.x1-0.05,cy,0.04,bd,1.05,0,mat.glass,hy+3.79));P.add(box(cx,B.y1-0.05,bw,0.04,1.05,0,mat.glass,hy+3.79));
+    P.add(box(B.x1-0.05,cy,0.06,bd,0.05,0,al,hy+3.79+1.05));P.add(box(cx,B.y1-0.05,bw,0.06,0.05,0,al,hy+3.79+1.05));
+    P.add(box(B.x1-0.12,B.y1-0.12,0.14,0.14,top-hy-3.97,0,al,hy+3.79));P.add(box(B.x1-0.12,cy,0.12,0.12,top-hy-3.97,0,al,hy+3.79));
     [[cx,B.y1-0.1,bw,0.12],[cx,B.y0+0.08,bw,0.12]].forEach(([x,y,w,d])=>P.add(box(x,y,w,d,0.22,0,al,top-0.22)));
     [[B.x1-0.1,cy],[B.x0+0.08,cy],[cx-0.05+bw*0.0,cy]].forEach(([x,y],i)=>P.add(box(i===2?(B.x0+B.x1)/2:x,y,i===2?0.08:0.12,bd,0.22,0,al,top-0.22)));
     for(let y=B.y0+0.22;y<B.y1-0.15;y+=0.2)P.add(box(cx,y,bw-0.1,0.05,0.16,0,M(0x2c2e31,{roughness:.45,metalness:.45}),top-0.2));
     // two sun loungers facing the pool + a side table and an olive in a planter (parents' balcony)
-    [[B.y0+0.95],[B.y0+1.85]].forEach(([yy],i)=>{const l=lounger(B.x0+1.55,yy,0,hy+3.97,0.55+i*0.12);l.traverse(m=>{if(m.isMesh)m.userData.key='lounger'});P.add(l)});
-    { const t=new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.18,0.42,20),M(0x8a6b4e,{roughness:.6}));const [x,z]=W(B.x0+0.35,B.y0+1.4);t.position.set(x,hy+3.97+0.21,z);P.add(t);
-      const pot=box(B.x0+0.35,B.y1-0.35,0.5,0.5,0.55,0,WM.corten,hy+3.97);P.add(pot);const sh=shrub(()=>0.37,0.5);const [px,pz]=W(B.x0+0.35,B.y1-0.35);sh.position.set(px,hy+4.5,pz);P.add(sh) }
-    onEdge(P,UPPER_B,[11.63,B.y0],[B.x0,B.y0],[[0.25,bw-0.25,3.62,6.6,'glass',{cols:3,rows:1,clear:true}]],hy);
-    onEdge(P,UPPER_B,[B.x0,B.y0],[B.x0,B.y1],[[0.9,1.7,4.9,6.0,'win',{cols:1,rows:1,clear:true}]],hy);
+    [[B.y0+0.95],[B.y0+1.85]].forEach(([yy],i)=>{const l=lounger(B.x0+1.55,yy,0,hy+3.79,0.55+i*0.12);l.traverse(m=>{if(m.isMesh)m.userData.key='lounger'});P.add(l)});
+    { const t=new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.18,0.42,20),M(0x8a6b4e,{roughness:.6}));const [x,z]=W(B.x0+0.35,B.y0+1.4);t.position.set(x,hy+3.79+0.21,z);P.add(t);
+      const pot=box(B.x0+0.35,B.y1-0.35,0.5,0.5,0.55,0,WM.corten,hy+3.79);P.add(pot);const sh=shrub(()=>0.37,0.5);const [px,pz]=W(B.x0+0.35,B.y1-0.35);sh.position.set(px,hy+4.5,pz);P.add(sh) }
+    panel(P,[12.03,B.y0],[B.x0,B.y0],0.55,3.41,3.62,6.6,'glass',hy,1,{cols:3,rows:1,clear:true});
+    
     P.traverse(m=>{if(m.isMesh){m.castShadow=m.receiveShadow=true;if(!m.userData.key)m.userData.key='pergola'}});inner.add(P);
     INFO.lounger={t:'מיטת שיזוף',d:'מסגרת אלומיניום, שלבי טיק, מזרן חוץ, משענת מתכווננת. אפשר להסיר מהתמונה.'};
     INFO.pergola={t:'מרפסת ופרגולת אלומיניום',d:'לפי תכנית קומה א\' ותכנית הגג (A-3, A-4): מרפסת בקומה א\' מול הבריכה, כ-3.2 × 2.6 מ\', מקורה בפרגולת אלומיניום עם שלבים. אפשר להסיר מהתמונה.'} }
-  // deep stone reveal around an opening: frame boxes standing proud of the wall
-  const reveal=(poly,a,b,u0,u1,z0,z1,d=0.45,t=0.28)=>{const sg=outward(a,b,poly),G=seg(a,b,u0,u1),nx=G.n[0]*sg,ny=G.n[1]*sg,c=[G.p[0]+nx*d/2,G.p[1]+ny*d/2];
-    const L=u1-u0,mid=(u0+u1)/2,side=u=>{const q=seg(a,b,u,u);return [q.p[0]+nx*d/2,q.p[1]+ny*d/2]};
-    inner.add(box(c[0],c[1],L+2*t,d,t,G.ang,mat.whiteP,hy+z1));inner.add(box(c[0],c[1],L+2*t,d,t,G.ang,mat.whiteP,hy+z0-t));
-    [u0-t/2,u1+t/2].forEach(u=>{const q=side(u);inner.add(box(q[0],q[1],t,d,z1-z0,G.ang,mat.whiteP,hy+z0))})};
-  // roof terrace glass rail over the north wing
-  [[[5.42,23.03],[5.42,38.0]],[[5.42,38.0],[11.63,38.0]],[[11.63,38.0],[11.63,23.03]]].forEach(([a,b])=>{const q=seg(a,b,0,Math.hypot(b[0]-a[0],b[1]-a[1]));inner.add(box(q.p[0],q.p[1],q.len,0.04,1.1,q.ang,mat.glass,hy+3.95))});
-  const E=(a,b,sp,base)=>onEdge(inner,H,a,b,sp,base??hy), U=(a,b,sp)=>onEdge(inner,UPPER,a,b,sp,hy);
-  // street front (south)
-  // street front (south), after the street renders: stone mass, dark recessed entrance, low ribbon window, upper ribbon glazing
-  E([4.29,7.98],[31.28,7.98],[[9.31,12.31,0,3.36,'niche'],[9.71,11.91,0,3.3,'pivot',{off:0.12}],[12.9,16.69,1.5,2.1,'glass',{cols:3,rows:1,clear:true}],[17.19,18.9,1.5,2.1,'win',{cols:1,rows:1}]]);
-  U([5.74,8.2],[21.23,8.2],[[0.7,7.45,4.3,6.55,'glass',{cols:5,rows:3,off:0.03,clear:true}],[10.72,14.8,4.3,6.55,'glass',{cols:3,rows:3,off:0.03,clear:true}]]);
-  reveal(UPPER,[5.74,8.2],[21.23,8.2],0.7,7.45,4.3,6.55,0.45,0.2);reveal(UPPER,[5.74,8.2],[21.23,8.2],10.72,14.8,4.3,6.55,0.45,0.2);
-  // pool side of the north wing (east): fixed vitrines
-  E([11.63,15.25],[11.63,38.0],[[0.15,1.4,0.05,3.15,'glass',{cols:1,rows:2,clear:true}],[3.05,10.15,0.05,3.15,'glass',{cols:5,rows:2,clear:true}],[12.05,17.65,0.05,3.15,'glass',{cols:4,rows:2,clear:true}]]);
-  E([11.63,38.0],[5.42,38.0],[[4.35,5.0,1.4,2.2,'win',{cols:1,rows:1,clear:true}]]);
-  E([5.42,38.0],[5.42,15.25],[[0.3,1.1,1.4,2.2,'win',{cols:1,rows:1,clear:true}],[5.2,6.2,1.4,2.2,'win',{cols:1,rows:1,clear:true}],[8.1,9.7,1.2,2.5,'win',{cols:2,rows:1,clear:true}],[11.8,13.4,1.2,2.5,'win',{cols:2,rows:1,clear:true}],[15.8,17.0,1.1,2.1,'win',{cols:1,rows:1,clear:true}],[18.2,19.1,0,2.2,'door',{cols:1,rows:1}],[21.1,21.8,1.5,2.1,'win',{cols:1,rows:1,clear:true}]]);
-  E([4.29,15.25],[4.29,7.98],[[2,5,1.2,2.2,'win',{cols:3,rows:1}]]);
-  // garden front of the main wing (north, facing the pool deck): sliding vitrines
-  E([31.28,15.25],[11.63,15.25],[[10.3,18.9,0.05,3.2,'glass',{cols:6,rows:2,clear:true}]]);
-  // upper floor: two-storey curtain wall to the pool, bedroom windows elsewhere
-  U([21.23,15.25],[11.63,15.25],[[0.25,9.4,3.95,6.65,'glass',{cols:6,rows:3,clear:true}]]);
-  U([11.63,15.25],[11.63,23.03],[[0.3,5.0,3.95,6.65,'glass',{cols:3,rows:3,clear:true}]]);
-  U([21.23,8.2],[21.23,15.25],[[1.8,5.3,4.8,6.05,'win',{cols:2,rows:1,clear:true}]]);
-  U([BALC.x0,23.03],[5.42,23.03],[[0.6,2.4,4.8,6.05,'win',{cols:2,rows:1,clear:true}]]);
-  U([5.42,23.03],[5.42,12.71],[[1.0,2.6,4.8,6.05,'win',{cols:1,rows:1,clear:true}],[4.5,6.5,4.8,6.05,'win',{cols:2,rows:1,clear:true}],[8,9.6,4.8,6.05,'win',{cols:1,rows:1}]]);
+  // roof terrace glass rail over the north wing (+3.75..+4.85)
+  [[[5.62,23.66],[5.62,37.88]],[[5.62,37.88],[11.53,37.88]],[[11.53,37.88],[11.53,23.66]]].forEach(([a,b])=>{const q=seg(a,b,0,Math.hypot(b[0]-a[0],b[1]-a[1]));inner.add(box(q.p[0],q.p[1],q.len,0.04,1.1,q.ang,mat.glass,hy+3.75))});
   houseDetails(inner,hy,H,UPPER,UPN);
   inner.traverse(m=>{if(m.isMesh){m.castShadow=m.receiveShadow=true;if(!m.userData.key)m.userData.key='house';pickable.push(m)}});
   const [px,pz]=W(HOUSE_C[0],HOUSE_C[1]),[qx,qz]=W(o.cx,o.cy);
   inner.position.set(-px,0,-pz);const mid=new THREE.Group();mid.scale.set(o.sx,1,o.sy);mid.add(inner);
   outer.add(mid);outer.position.set(qx,0,qz);outer.rotation.y=o.angle*Math.PI/180;dyn.add(outer);
-  {const ri=new THREE.Group(),rm=new THREE.Group(),ro=new THREE.Group(),P=[[5.74,7.982],[21.23,7.982],[21.23,15.249],[5.74,15.249]];ri.add(prism(P,0.3,mat.beton,hy+6.65));ri.add(flat(P,RGRAVEL,hy+6.956));ri.add(flat(P,mat.plaster,hy+6.64));{const g=new THREE.ExtrudeGeometry(shape(UPN),{depth:0.95,bevelEnabled:false});g.rotateX(-Math.PI/2);const m=new THREE.Mesh(g,[hmats().plaster,mat.beton]);m.position.y=hy+6.6;ri.add(m);ri.add(flat(UPN,RGRAVEL,hy+7.556))}
+  {const ri=new THREE.Group(),rm=new THREE.Group(),ro=new THREE.Group(),P=[[5.55,7.98],[21.33,7.98],[21.33,15.2],[13.3,15.2],[13.3,14.9],[11.53,14.9],[11.53,15.48],[5.55,15.48]];ri.add(prism(P,0.3,mat.beton,hy+6.65));[[[21.33,15.2],[13.3,15.2]],[[13.3,15.2],[13.3,14.9]],[[13.3,14.9],[11.53,14.9]]].forEach(([a,b])=>{const q=seg(a,b,0,Math.hypot(b[0]-a[0],b[1]-a[1])),o=0.1;ri.add(boxW(q.p[0]-q.n[0]*o,q.p[1]-q.n[1]*o,q.len,0.2,0.9,q.ang,mat.beton,hy+6.65))});ri.add(flat(P,RGRAVEL,hy+6.956));ri.add(flat(P,mat.plaster,hy+6.64));{const g=new THREE.ExtrudeGeometry(shape(UPN),{depth:0.95,bevelEnabled:false});g.rotateX(-Math.PI/2);const m=new THREE.Mesh(g,[hmats().plaster,mat.beton]);m.position.y=hy+6.6;ri.add(m);ri.add(flat(UPN,RGRAVEL,hy+7.556))}
     roofKit(ri,hy,P,UPN);ri.traverse(m=>{if(m.isMesh){m.castShadow=m.receiveShadow=true;m.userData.key='house'}});ri.position.set(-px,0,-pz);rm.scale.set(o.sx,1,o.sy);rm.add(ri);ro.add(rm);ro.position.set(qx,0,qz);ro.rotation.y=o.angle*Math.PI/180;ro.userData.key='house';groups.roofs.add(ro)}
   INFO.hint={t:'פנים הבית: סלון, פינת אוכל ומטבח',d:'חלל כפול בגובה 6.65 מ\' לפי תכניות א-2 וא-3: סלון 7.20 מ\' עם קיר אח ומדיה מאבן, ספה פינתית, כורסאות ושטיח; מדרגות U עם מעקה זכוכית 1.10 מ\' לקומה א\' (+3.60); פינת אוכל ל-10 מול ויטרינת הבריכה; מטבח 4.35 מ\' עם קיר עמודים (מקרר, תנורים, מזווה), משטח עם כיור, משטח מתחת לחלון הסרט ואי 3.2 מ\' עם כיריים אינדוקציה ו-4 כיסאות בר. תכנית המטבח באדריכלות "תסופק ע"י המזמין", לכן זו הצעה.'};
   INFO.wing={t:'אגף החדרים וקומה א\'',d:'לפי תכניות א-2 וא-3 (18.11.2024): '+WING_ROOMS.map(r=>r[1]+' '+((r[4]-r[2])*(r[5]-r[3])).toFixed(1)+' מ"ר').join(' · ')+'. חלונות לפי סימוני ס.ע/ס.ת בתכנית (אדני 1.10–1.40, משקופים 2.10–2.50); ויטרינות קבועות לבריכה לאורך המסדרון. ריהוט הוא הצעה.'};
